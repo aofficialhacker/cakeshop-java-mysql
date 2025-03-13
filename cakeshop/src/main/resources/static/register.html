@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Register - Cake Shop</title>
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&display=swap"
+    rel="stylesheet"
+  />
+  <!-- Bootstrap Icons CDN -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+  />
+  <!-- AOS Animation Library -->
+  <link
+    href="https://unpkg.com/aos@2.3.1/dist/aos.css"
+    rel="stylesheet"
+  />
+  <!-- Favicon -->
+  <link
+    rel="icon"
+    type="image/png"
+    href="https://img.icons8.com/color/48/000000/cake.png"
+  />
+
+  <!-- Embedded CSS -->
+  <style>
+    /* Base Background & Layout */
+    body {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      min-height: 100vh;
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header & Footer (Optional) */
+    .auth-header,
+    .auth-footer {
+      text-align: center;
+      padding: 20px 0;
+    }
+    .auth-header .logo h1,
+    .auth-footer .footer-logo h2 {
+      font-family: "Dancing Script", cursive;
+      font-size: 2rem;
+      color: #ff6f61;
+      margin: 0;
+    }
+    .logo-text {
+      font-weight: 600;
+    }
+    .logo-accent {
+      font-weight: 700;
+      color: #ffb88c;
+    }
+    .footer-links h3 {
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+    }
+    .footer-links a {
+      text-decoration: none;
+      color: #666;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+    }
+    .footer-links a:hover {
+      color: #ff6f61;
+    }
+    .footer-bottom {
+      font-size: 0.85rem;
+      color: #999;
+      margin-top: 10px;
+    }
+
+    /* Auth Section */
+    .auth-section {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 15px;
+    }
+    .auth-form-container {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      padding: 40px 30px;
+      width: 100%;
+      max-width: 500px;
+      animation: fadeIn 0.6s ease-out;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Form Headings */
+    .auth-form-container h2 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: #2d3748;
+      text-align: center;
+      font-weight: 700;
+    }
+    .auth-subtitle {
+      text-align: center;
+      font-size: 1rem;
+      color: #718096;
+      margin-bottom: 2rem;
+      font-weight: 500;
+    }
+
+    /* Form Groups */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #2d3748;
+    }
+    .form-group i {
+      color: #a0aec0;
+      margin-right: 6px;
+      font-size: 1.1rem;
+      vertical-align: middle;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 1rem;
+      color: #2d3748;
+      background: rgba(255, 255, 255, 0.95);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: #ff6f61;
+      box-shadow: 0 0 0 3px rgba(255, 111, 97, 0.15);
+    }
+    .password-hint {
+      display: none;
+      font-size: 0.8rem;
+      color: #999;
+      margin-top: 6px;
+      line-height: 1.2;
+    }
+
+    /* Terms Checkbox */
+    .terms-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+    .terms-checkbox input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      border: 1px solid #e2e8f0;
+      border-radius: 3px;
+      appearance: none;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.3s ease;
+    }
+    .terms-checkbox input[type="checkbox"]:checked {
+      background: #ff6f61;
+      border-color: #ff6f61;
+    }
+    .terms-checkbox input[type="checkbox"]:checked::after {
+      content: "✓";
+      position: absolute;
+      top: -2px;
+      left: 2px;
+      font-size: 12px;
+      color: white;
+    }
+    .terms-checkbox a {
+      color: #ff6f61;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    .terms-checkbox a:hover {
+      text-decoration: underline;
+      color: #e65a55;
+    }
+
+    /* Submit Button */
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(45deg, #ff6f61, #ffb88c);
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      margin-top: 1rem;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255, 111, 97, 0.3);
+    }
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 12px rgba(255, 111, 97, 0.2);
+    }
+
+    /* Divider & Auth Link */
+    .auth-divider {
+      text-align: center;
+      margin: 2rem 0 1rem 0;
+      position: relative;
+    }
+    .auth-divider::before,
+    .auth-divider::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: calc(50% - 30px);
+      height: 1px;
+      background: #e2e8f0;
+    }
+    .auth-divider::before {
+      left: 0;
+    }
+    .auth-divider::after {
+      right: 0;
+    }
+    .auth-divider span {
+      background: #fff;
+      padding: 0 10px;
+      color: #718096;
+      font-size: 0.9rem;
+    }
+    .auth-link {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #718096;
+    }
+    .auth-link a {
+      color: #ff6f61;
+      font-weight: 600;
+      text-decoration: none;
+      margin-left: 4px;
+      transition: color 0.3s ease;
+    }
+    .auth-link a:hover {
+      text-decoration: underline;
+      color: #e65a55;
+    }
+
+    /* Success & Error Messages */
+    .success-message {
+      text-align: center;
+      padding: 30px;
+    }
+    #error-message {
+      color: #e65c50;
+      background-color: rgba(230, 92, 80, 0.1);
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .auth-form-container {
+        margin: 20px;
+        padding: 30px 20px;
+      }
+      .auth-form-container h2 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="auth-header">
+    <div class="container">
+      <div class="logo" data-aos="fade-down" data-aos-duration="800">
+        <h1>
+          <span class="logo-text">Cake</span>
+          <span class="logo-accent">Shop</span>
+        </h1>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <section class="auth-section">
+      <div class="auth-form-container" data-aos="fade-up" data-aos-duration="1000">
+        <h2>Create Account</h2>
+        <p class="auth-subtitle">Join our sweet community today</p>
+
+        <!-- Registration Form -->
+        <form id="register-form">
+          <div id="error-message"></div>
+
+          <!-- Username -->
+          <div class="form-group">
+            <label for="register-username">
+              <i class="bi bi-person"></i> Username
+            </label>
+            <input
+              type="text"
+              id="register-username"
+              placeholder="Choose a username"
+              required
+            />
+          </div>
+
+          <!-- Full Name -->
+          <div class="form-group">
+            <label for="register-fullname">
+              <i class="bi bi-person-badge"></i> Full Name
+            </label>
+            <input
+              type="text"
+              id="register-fullname"
+              placeholder="Enter your full name"
+              required
+            />
+          </div>
+
+          <!-- Mobile Number -->
+          <div class="form-group">
+            <label for="register-mobile">
+              <i class="bi bi-phone"></i> Mobile Number
+            </label>
+            <input
+              type="tel"
+              id="register-mobile"
+              placeholder="Enter your mobile number"
+              required
+            />
+          </div>
+
+          <!-- Address -->
+          <div class="form-group">
+            <label for="register-address">
+              <i class="bi bi-geo-alt"></i> Address
+            </label>
+            <input
+              type="text"
+              id="register-address"
+              placeholder="Enter your address"
+              required
+            />
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="register-email">
+              <i class="bi bi-envelope"></i> Email
+            </label>
+            <input
+              type="email"
+              id="register-email"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label for="register-password">
+              <i class="bi bi-lock"></i> Password
+            </label>
+            <input
+              type="password"
+              id="register-password"
+              placeholder="Create a password"
+              required
+            />
+            <small class="password-hint">
+              Password must be at least 8 characters long with letters and numbers
+            </small>
+          </div>
+
+          <!-- Terms Checkbox -->
+          <div class="form-group terms-checkbox">
+            <input type="checkbox" id="terms" required />
+            <label for="terms">
+              I agree to the
+              <a href="#">Terms of Service</a> and
+              <a href="#">Privacy Policy</a>
+            </label>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn">
+            <i class="bi bi-person-plus"></i> Create Account
+          </button>
+        </form>
+
+        <!-- Divider -->
+        <div class="auth-divider">
+          <span>OR</span>
+        </div>
+
+        <!-- Already have account link -->
+        <p class="auth-link">
+          Already have an account?
+          <a href="login.html">Login here</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="auth-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo" data-aos="fade-up" data-aos-duration="800">
+          <h2>
+            <span class="logo-text">Cake</span>
+            <span class="logo-accent">Shop</span>
+          </h2>
+          <p>Delicious cakes for every occasion</p>
+        </div>
+        <div
+          class="footer-links"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="200"
+        >
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="browse.html">Browse Cakes</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Cake Shop. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- AOS Animation Library -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      AOS.init({
+        once: true,
+        mirror: false,
+        duration: 1000,
+        easing: "ease-in-out",
+      });
+
+      // Password validation
+      const passwordInput = document.getElementById("register-password");
+      const passwordHint = document.querySelector(".password-hint");
+
+      passwordInput.addEventListener("focus", function () {
+        passwordHint.style.display = "block";
+        passwordHint.style.color = "#666";
+      });
+
+      passwordInput.addEventListener("blur", function () {
+        if (!this.value) {
+          passwordHint.style.display = "none";
+        }
+      });
+
+      passwordInput.addEventListener("input", function () {
+        const password = this.value;
+        const isValid =
+          password.length >= 8 &&
+          /[A-Za-z]/.test(password) &&
+          /[0-9]/.test(password);
+
+        if (isValid) {
+          passwordHint.style.color = "#4CAF50";
+        } else {
+          passwordHint.style.color = "#ff6f61";
+        }
+      });
+
+      // Form submission
+      document
+        .getElementById("register-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const username = document
+            .getElementById("register-username")
+            .value.trim();
+          const fullName = document
+            .getElementById("register-fullname")
+            .value.trim();
+          const mobileNumber = document
+            .getElementById("register-mobile")
+            .value.trim();
+          const address = document
+            .getElementById("register-address")
+            .value.trim();
+          const email = document
+            .getElementById("register-email")
+            .value.trim();
+          const password = document.getElementById("register-password").value;
+          const termsChecked = document.getElementById("terms").checked;
+
+          if (!username || !fullName || !mobileNumber || !address || !email || !password) {
+            showError("Please fill in all required fields.");
+            return;
+          }
+
+          if (!termsChecked) {
+            showError(
+              "Please agree to the Terms of Service and Privacy Policy."
+            );
+            return;
+          }
+
+          // Password validation
+          if (
+            password.length < 8 ||
+            !/[A-Za-z]/.test(password) ||
+            !/[0-9]/.test(password)
+          ) {
+            showError(
+              "Password must be at least 8 characters long with letters and numbers."
+            );
+            return;
+          }
+
+          const newUser = {
+            username,
+            fullName,
+            mobileNumber,
+            address,
+            email,
+            password,
+          };
+
+          // Show loading state
+          const submitBtn = this.querySelector('button[type="submit"]');
+          const originalBtnText = submitBtn.innerHTML;
+          submitBtn.innerHTML =
+            '<i class="bi bi-hourglass-split"></i> Creating Account...';
+          submitBtn.disabled = true;
+
+          fetch("/api/auth/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newUser),
+          })
+            .then((response) => {
+              if (!response.ok) throw new Error("Registration failed");
+              return response.json();
+            })
+            .then((user) => {
+              if (user && user.id) {
+                // Show success message
+                const formContainer =
+                  document.querySelector(".auth-form-container");
+                const successMessage = document.createElement("div");
+                successMessage.className = "success-message";
+                successMessage.innerHTML = `
+                  <i class="bi bi-check-circle-fill" style="font-size: 3rem; color: #4CAF50; margin-bottom: 15px;"></i>
+                  <h3>Registration Successful!</h3>
+                  <p>Your account has been created successfully.</p>
+                  <button onclick="window.location.href='login.html'" class="btn" style="margin-top: 20px;">
+                    <i class="bi bi-box-arrow-in-right"></i> Proceed to Login
+                  </button>
+                `;
+                formContainer.innerHTML = "";
+                formContainer.appendChild(successMessage);
+              } else {
+                showError("Registration failed. Please try again.");
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+              }
+            })
+            .catch((error) => {
+              console.error("Error during registration:", error);
+              showError("Registration failed. Please try again.");
+              submitBtn.innerHTML = originalBtnText;
+              submitBtn.disabled = false;
+            });
+        });
+
+      // Error message function
+      function showError(message) {
+        let errorElement = document.getElementById("error-message");
+        if (!errorElement) {
+          errorElement = document.createElement("div");
+          errorElement.id = "error-message";
+          const form = document.getElementById("register-form");
+          form.insertBefore(errorElement, form.firstChild);
+        }
+        errorElement.innerHTML = `<i class="bi bi-exclamation-triangle"></i> ${message}`;
+        errorElement.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    });
+  </script>
+</body>
+</html>
